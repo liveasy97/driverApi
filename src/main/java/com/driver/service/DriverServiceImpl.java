@@ -101,23 +101,12 @@ public class DriverServiceImpl implements DriverService {
 		}
 		
 		
-		String regex = "^[6-9]\\d{9}$";
-		Pattern pattern = Pattern.compile(regex);		
-		
 		
 		if(driverRequest.getDriverName()!=null) {
 			d.setDriverName(driverRequest.getDriverName());
 		}
-		
-		if(driverRequest.getPhoneNum()!=null ) {
-			Matcher matcher = pattern.matcher(driverRequest.getPhoneNum());
-			if(!matcher.matches()) {
-				driverResponse.setStatus(Constants.phoneNumError2);
-				return driverResponse;
-			}
-			
-			d.setPhoneNum(driverRequest.getPhoneNum());
-			
+		if(driverRequest.getTruckId()!=null) {
+			d.setTruckId(driverRequest.getTruckId());
 		}
 		
 		driverRepository.save(d);	
