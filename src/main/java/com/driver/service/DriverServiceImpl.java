@@ -42,7 +42,7 @@ public class DriverServiceImpl implements DriverService {
 		DriverResponse driverResponse = new DriverResponse();
 		Driver d = new Driver();
 		
-		String regex = "^\\d{10}$";
+		String regex = "^[6-9]\\d{9}$";
 		Pattern pattern = Pattern.compile(regex);		
 		
 		
@@ -101,7 +101,7 @@ public class DriverServiceImpl implements DriverService {
 		}
 		
 		
-		String regex = "^\\d{10}$";
+		String regex = "^[6-9]\\d{9}$";
 		Pattern pattern = Pattern.compile(regex);		
 		
 		
@@ -137,8 +137,9 @@ public class DriverServiceImpl implements DriverService {
 			return driverResponse;
 		}
 		
-		driverResponse.setStatus(Constants.deleteSuccess);
 		driverRepository.delete(d.get());
+		driverResponse.setStatus(Constants.deleteSuccess);
+		
 		return driverResponse;
 		
 		}
