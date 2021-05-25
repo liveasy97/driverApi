@@ -1,5 +1,6 @@
 package com.driver.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -45,6 +46,7 @@ public class DriverServiceImpl implements DriverService {
 		String regex = "^[6-9]\\d{9}$";
 		Pattern pattern = Pattern.compile(regex);		
 		
+		List<String> listOfDriver = new ArrayList<>();
 		
 		if(driverRequest.getTransporterId()==null) {
 			driverResponse.setStatus(Constants.transporterIdError);
@@ -69,6 +71,14 @@ public class DriverServiceImpl implements DriverService {
 		}
 		
 		
+		listOfDriver=driverRepository.findPhoneNumByTransportId(driverRequest.getTransporterId());  
+		
+		if(listOfDriver.contains((String.valueOf(driverRequest.getPhoneNum())))){
+			driverResponse.setStatus(Constants.phoneNumError3);
+			return driverResponse;
+		}
+		
+		
 		String driverid="driver:"+UUID.randomUUID();
 		
 		d.setDriverId(driverid);
@@ -84,7 +94,8 @@ public class DriverServiceImpl implements DriverService {
 		driverRepository.save(d);	
 		return driverResponse;
 		
-	}
+		}
+	
 
 	@Override
 	public DriverResponse updateDriver(String driverId, DriverRequest driverRequest) {

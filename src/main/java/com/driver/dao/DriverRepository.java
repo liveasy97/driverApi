@@ -16,7 +16,7 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
 	
 	
 	@Query("select d from Driver d where d.transporterId = :transporterId")
-	List<Driver> findByTransportId( String transporterId,Pageable pageable);
+	List<Driver> findByTransportId(String transporterId,Pageable pageable);
 
 	@Query("select d from Driver d where d.phoneNum = :phoneNum")
 	List<Driver> findByPhoneNum(String phoneNum,Pageable pageable);
@@ -26,7 +26,12 @@ public interface DriverRepository extends JpaRepository<Driver, String> {
 	
 	@Query("select d from Driver d")
 	List<Driver> findAllDrivers(Pageable pageable);
+	
+	@Query("select d.phoneNum from Driver d where d.transporterId = :transporterId")
+	List<String> findPhoneNumByTransportId(String transporterId);
 
+
+	
 	
 	
 	
