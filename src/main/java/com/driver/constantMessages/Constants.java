@@ -12,4 +12,6 @@ public class Constants {
 	public static String AccountNotFoundError = "Account not found";
 	public static String deleteSuccess = "Deleted Succcessfully";
 	
+	
+	public static final long pageSize = 15;
 }
