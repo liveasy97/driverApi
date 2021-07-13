@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.driver.Exception.EntityNotFoundException;
 import com.driver.entities.Driver;
 import com.driver.model.DriverRequest;
 import com.driver.model.DriverResponse;
@@ -32,43 +33,41 @@ public class DriverController {
 	private DriverService driverService;
 
 	@GetMapping("/driver/{driverId}")
-	public  ResponseEntity<Driver> getDriversById(@PathVariable(value = "driverId") String driverId) {
+	public ResponseEntity<Driver> getDriversById(@PathVariable(value = "driverId") String driverId)
+			throws EntityNotFoundException {
 		log.info("Get Controller Started");
-		return new ResponseEntity<>(driverService.getDriverById(driverId),
-				HttpStatus.OK);
+		return new ResponseEntity<>(driverService.getDriverById(driverId), HttpStatus.OK);
 	}
 
 	@GetMapping("/driver")
-	public  ResponseEntity<List<Driver>> getAllDrivers(@RequestParam(name = "transporterId", required = false) String transporterId,
+	public ResponseEntity<List<Driver>> getAllDrivers(
+			@RequestParam(name = "transporterId", required = false) String transporterId,
 			@RequestParam(name = "phoneNum", required = false) String phoneNum,
 			@RequestParam(name = "truckId", required = false) String truckId,
-			@RequestParam(name = "page", required = false) Optional<Integer> page) {
+			@RequestParam(name = "page", required = false) Optional<Integer> page) throws EntityNotFoundException {
 		log.info("Get with Params Controller Started");
-		return new ResponseEntity<>(driverService.getAllDrivers(transporterId, phoneNum, truckId, page),
-				HttpStatus.OK);
+		return new ResponseEntity<>(driverService.getAllDrivers(transporterId, phoneNum, truckId, page), HttpStatus.OK);
 	}
 
 	@PostMapping("/driver")
-	public  ResponseEntity<DriverResponse> driverResponse(@Valid @RequestBody DriverRequest driverRequest) {
+	public ResponseEntity<DriverResponse> driverResponse(@Valid @RequestBody DriverRequest driverRequest) {
 		log.info("Post Controller Started");
-		return new ResponseEntity<>(driverService.addDriver(driverRequest),
-				HttpStatus.CREATED);
+		return new ResponseEntity<>(driverService.addDriver(driverRequest), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/driver/{driverId}")
-	public  ResponseEntity<DriverResponse> updateDriverResponse(@Valid @PathVariable(value = "driverId") String driverId,
-			@RequestBody DriverRequest driverRequest) {
+	public ResponseEntity<DriverResponse> updateDriverResponse(@Valid @PathVariable(value = "driverId") String driverId,
+			@RequestBody DriverRequest driverRequest) throws EntityNotFoundException {
 		log.info("Put Controller Started");
-		return new ResponseEntity<>(driverService.updateDriver(driverId, driverRequest),
-				HttpStatus.OK);
+		return new ResponseEntity<>(driverService.updateDriver(driverId, driverRequest), HttpStatus.OK);
 
 	}
 
 	@DeleteMapping("/driver/{driverId}")
-	public  ResponseEntity<DriverResponse> deleteDriver(@PathVariable(value = "driverId") String driverId) {
+	public ResponseEntity<DriverResponse> deleteDriver(@PathVariable(value = "driverId") String driverId)
+			throws EntityNotFoundException {
 		log.info("Delete Controller Started");
-		return new ResponseEntity<>(driverService.deleteDriver(driverId),
-				HttpStatus.OK);
+		return new ResponseEntity<>(driverService.deleteDriver(driverId), HttpStatus.OK);
 
 	}
 
