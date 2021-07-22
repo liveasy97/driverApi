@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DriverResponse {
 
-	
+	private String driverId;
 	private String status;
 	private String transporterId;
 	private String phoneNum;

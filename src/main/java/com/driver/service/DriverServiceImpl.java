@@ -61,6 +61,7 @@ public class DriverServiceImpl implements DriverService {
 		}
 		driverRepository.save(d);
 		log.info("Driver Data is saved");
+		driverResponse.setDriverId(driverid);
 		driverResponse.setStatus(Constants.driverAdded);
 		driverResponse.setDriverName(d.getDriverName());
 		driverResponse.setPhoneNum(d.getPhoneNum());
@@ -94,6 +95,7 @@ public class DriverServiceImpl implements DriverService {
 
 		driverRepository.save(d);
 		log.info("Driver Data is updated");
+		driverResponse.setDriverId(driverId);
 		driverResponse.setStatus(Constants.updateSuccess);
 		driverResponse.setDriverName(d.getDriverName());
 		driverResponse.setPhoneNum(d.getPhoneNum());
