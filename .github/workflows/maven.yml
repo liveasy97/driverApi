@@ -3,7 +3,7 @@
 name: Java CI with Maven
 on:
   push:
-    branches: [ dev ]
+    branches: [ main ]
 
 
 
@@ -13,7 +13,7 @@ defaults:
     
 jobs:
   build:
-    runs-on: self-hosted
+    runs-on: [self-hosted, linux, x64, main]
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
