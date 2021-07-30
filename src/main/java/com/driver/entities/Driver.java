@@ -1,11 +1,14 @@
 package com.driver.entities;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.AllArgsConstructor;
@@ -31,5 +34,8 @@ public class Driver {
 	private String driverName;
 
 	private String truckId;
+
+	@CreationTimestamp
+	public Timestamp timestamp;
 
 }
