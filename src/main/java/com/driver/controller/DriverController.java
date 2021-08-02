@@ -44,7 +44,7 @@ public class DriverController {
 			@RequestParam(name = "transporterId", required = false) String transporterId,
 			@RequestParam(name = "phoneNum", required = false) String phoneNum,
 			@RequestParam(name = "truckId", required = false) String truckId,
-			@RequestParam(name = "page", required = false) Optional<Integer> page) throws EntityNotFoundException {
+			@RequestParam(name = "page", required = false) Integer page) throws EntityNotFoundException {
 		log.info("Get with Params Controller Started");
 		return new ResponseEntity<>(driverService.getAllDrivers(transporterId, phoneNum, truckId, page), HttpStatus.OK);
 	}
