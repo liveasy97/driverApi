@@ -28,10 +28,8 @@ jobs:
       
     - run: cd ~/actions-runner/deploy/driverApi/driverApi/
     - run: sudo docker container stop driverContainer || true
-    - run: sudo docker container start docker-postgres || true
     - run: sudo docker container prune -f
     - run: sudo docker image rm driver || true
     - run: sudo docker build -t driver .
-    - run: sudo docker run --name docker-postgres -e POSTGRES_ROOT_PASSWORD=Varun09! -e POSTGRES_DATABASE=postgres -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=Varun09! -d postgres:alpine || true
-    - run: sudo docker run -p 8080:8080 --name driverContainer --link docker-postgres:postgres driver | echo "success" 
+    - run: sudo docker run -p 8080:8080 --name driverContainer -d driver | echo "success" 
  
