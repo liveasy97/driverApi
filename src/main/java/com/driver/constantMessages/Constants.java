@@ -13,5 +13,5 @@ public class Constants {
 	public static String deleteSuccess = "Deleted Succcessfully";
 	
 	
-	public static final long pageSize = 15;
+	public static final int pageSize = 15;
 }
