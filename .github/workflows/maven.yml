@@ -28,8 +28,8 @@ jobs:
       
     - run: cd ~/actions-runner/deploy/driverApi/driverApi/
     - run: sudo docker container stop driverContainer || true
-    - run: sudo docker container prune -f
+    - run: sudo docker container rm driverContainer ||true 
     - run: sudo docker image rm driver || true
     - run: sudo docker build -t driver .
-    - run: sudo docker run -p 8080:8080 --name driverContainer --link docker-postgres:postgres driver | echo "success" 
+    - run: sudo docker run -p 8080:8080 --name driverContainer driver | echo "success" 
  
