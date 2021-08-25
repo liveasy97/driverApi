@@ -6,9 +6,10 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.driver.Exception.EntityNotFoundException;
 import com.driver.constantMessages.Constants;
@@ -130,50 +131,49 @@ public class DriverServiceImpl implements DriverService {
 	@Override
 	@Transactional(readOnly = true, rollbackFor = Exception.class)
 	public List<Driver> getAllDrivers(String transporterId, String phoneNum, String truckId,
-			@RequestParam Optional<Integer> page) {
+			Integer pageNo) {
 
+		if(pageNo==null)
+			pageNo=0;
+
+		Pageable currentPage=PageRequest.of(pageNo, Constants.pageSize, Sort.Direction.DESC, "timestamp");
 		if (transporterId != null && phoneNum == null && truckId == null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByTransporterId(transporterId,
-					PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByTransporterId(transporterId,currentPage);
 		}
 
 		if (phoneNum != null && truckId == null && transporterId == null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByPhoneNum(phoneNum, PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByPhoneNum(phoneNum,currentPage);
 		}
 
 		if (truckId != null && transporterId == null && phoneNum == null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByTruckId(truckId, PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByTruckId(truckId,currentPage);
 		}
 
 		if (transporterId != null && phoneNum != null && truckId == null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByPhoneNumAndTransporterId(phoneNum, transporterId,
-					PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByPhoneNumAndTransporterId(phoneNum, transporterId,currentPage);
 		}
 
 		if (transporterId != null && phoneNum == null && truckId != null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByTruckIdAndTransporterId(truckId, transporterId,
-					PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByTruckIdAndTransporterId(truckId, transporterId,currentPage);
 		}
 
 		if (transporterId == null && phoneNum != null && truckId != null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByPhoneNumAndTruckId(phoneNum, truckId,
-					PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByPhoneNumAndTruckId(phoneNum, truckId,currentPage);
 		}
 
 		if (transporterId != null && phoneNum != null && truckId != null) {
 			log.info("Driver Data with params returned");
-			return driverRepository.findByPhoneNumAndTransporterIdAndTruckId(phoneNum, transporterId,truckId,
-					PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+			return driverRepository.findByPhoneNumAndTransporterIdAndTruckId(phoneNum, transporterId,truckId,currentPage);
 		}
 
 		log.info("Driver Data get all method called");
-		return driverRepository.findAllDrivers(PageRequest.of(page.orElse(0), (int) Constants.pageSize));
+		return driverRepository.findAllDrivers(currentPage);
 
 	}
 

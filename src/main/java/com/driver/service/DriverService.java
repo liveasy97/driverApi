@@ -16,7 +16,7 @@ public interface DriverService {
 	public DriverResponse addDriver(DriverRequest driverRequest);
 	public DriverResponse updateDriver(String driverId,DriverRequest driverRequest);
 	public DriverResponse deleteDriver(String driverId);
-	public List<Driver> getAllDrivers(String transporterId, String phoneNum, String truckId,@RequestParam Optional<Integer> page);
-	
-	
+	public List<Driver> getAllDrivers(String transporterId, String phoneNum, String truckId,Integer pageNo);
+
+
 }
