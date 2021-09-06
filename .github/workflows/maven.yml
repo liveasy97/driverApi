@@ -13,7 +13,7 @@ defaults:
     
 jobs:
   build:
-    runs-on: ['self-hosted', 'Linux', 'X64' ]
+    runs-on: ['self-hosted', 'Linux', 'X64', 'dev']
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -28,7 +28,7 @@ jobs:
       
     - run: cd ~/actions-runner/deploy/driverApi/driverApi/
     - run: sudo docker container stop driverContainer || true
-    - run: sudo docker container prune -f
+    - run: sudo docker container rm driverContainer || true
     - run: sudo docker image rm driver || true
     - run: sudo docker build -t driver .
     - run: sudo docker run -p 8080:8080 --name driverContainer -d driver | echo "success" 
